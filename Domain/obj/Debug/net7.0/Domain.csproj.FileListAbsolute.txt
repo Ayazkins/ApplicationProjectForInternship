@@ -1,0 +1,12 @@
+/home/ayaz/RiderProjects/WebApplication1/Domain/bin/Debug/net7.0/Domain.deps.json
+/home/ayaz/RiderProjects/WebApplication1/Domain/bin/Debug/net7.0/Domain.dll
+/home/ayaz/RiderProjects/WebApplication1/Domain/bin/Debug/net7.0/Domain.pdb
+/home/ayaz/RiderProjects/WebApplication1/Domain/obj/Debug/net7.0/Domain.csproj.AssemblyReference.cache
+/home/ayaz/RiderProjects/WebApplication1/Domain/obj/Debug/net7.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/ayaz/RiderProjects/WebApplication1/Domain/obj/Debug/net7.0/Domain.AssemblyInfoInputs.cache
+/home/ayaz/RiderProjects/WebApplication1/Domain/obj/Debug/net7.0/Domain.AssemblyInfo.cs
+/home/ayaz/RiderProjects/WebApplication1/Domain/obj/Debug/net7.0/Domain.csproj.CoreCompileInputs.cache
+/home/ayaz/RiderProjects/WebApplication1/Domain/obj/Debug/net7.0/Domain.dll
+/home/ayaz/RiderProjects/WebApplication1/Domain/obj/Debug/net7.0/refint/Domain.dll
+/home/ayaz/RiderProjects/WebApplication1/Domain/obj/Debug/net7.0/Domain.pdb
+/home/ayaz/RiderProjects/WebApplication1/Domain/obj/Debug/net7.0/ref/Domain.dll

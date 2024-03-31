@@ -1,0 +1,7 @@
+/home/ayaz/RiderProjects/WebApplication1/Domain/bin/Debug/net7.0/publish/Domain.dll
+/home/ayaz/RiderProjects/WebApplication1/Domain/bin/Debug/net7.0/publish/Domain.deps.json
+/home/ayaz/RiderProjects/WebApplication1/Domain/bin/Debug/net7.0/publish/Domain.pdb
+/home/ayaz/RiderProjects/WebApplication1/Domain/bin/Debug/net7.0/publish/Microsoft.Extensions.DependencyInjection.dll
+/home/ayaz/RiderProjects/WebApplication1/Domain/bin/Debug/net7.0/publish/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/home/ayaz/RiderProjects/WebApplication1/Domain/bin/Debug/net7.0/publish/Microsoft.EntityFrameworkCore.dll
+/home/ayaz/RiderProjects/WebApplication1/Domain/bin/Debug/net7.0/publish/Microsoft.EntityFrameworkCore.xml

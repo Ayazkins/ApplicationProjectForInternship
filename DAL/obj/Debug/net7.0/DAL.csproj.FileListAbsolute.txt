@@ -1,0 +1,17 @@
+/home/ayaz/RiderProjects/WebApplication1/DAL/bin/Debug/net7.0/DAL.deps.json
+/home/ayaz/RiderProjects/WebApplication1/DAL/bin/Debug/net7.0/DAL.dll
+/home/ayaz/RiderProjects/WebApplication1/DAL/bin/Debug/net7.0/DAL.pdb
+/home/ayaz/RiderProjects/WebApplication1/DAL/bin/Debug/net7.0/Domain.dll
+/home/ayaz/RiderProjects/WebApplication1/DAL/bin/Debug/net7.0/Domain.pdb
+/home/ayaz/RiderProjects/WebApplication1/DAL/obj/Debug/net7.0/DAL.csproj.AssemblyReference.cache
+/home/ayaz/RiderProjects/WebApplication1/DAL/obj/Debug/net7.0/DAL.GeneratedMSBuildEditorConfig.editorconfig
+/home/ayaz/RiderProjects/WebApplication1/DAL/obj/Debug/net7.0/DAL.AssemblyInfoInputs.cache
+/home/ayaz/RiderProjects/WebApplication1/DAL/obj/Debug/net7.0/DAL.AssemblyInfo.cs
+/home/ayaz/RiderProjects/WebApplication1/DAL/obj/Debug/net7.0/DAL.csproj.CoreCompileInputs.cache
+/home/ayaz/RiderProjects/WebApplication1/DAL/obj/Debug/net7.0/DAL.csproj.CopyComplete
+/home/ayaz/RiderProjects/WebApplication1/DAL/obj/Debug/net7.0/DAL.dll
+/home/ayaz/RiderProjects/WebApplication1/DAL/obj/Debug/net7.0/refint/DAL.dll
+/home/ayaz/RiderProjects/WebApplication1/DAL/obj/Debug/net7.0/DAL.pdb
+/home/ayaz/RiderProjects/WebApplication1/DAL/obj/Debug/net7.0/ref/DAL.dll
+/home/ayaz/RiderProjects/WebApplication1/DAL/bin/Debug/net7.0/DAL.runtimeconfig.json
+/home/ayaz/RiderProjects/WebApplication1/DAL/obj/Debug/net7.0/DAL.genruntimeconfig.cache

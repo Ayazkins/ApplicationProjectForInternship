@@ -1,0 +1,25 @@
+﻿services:
+  controllers:
+    image: controllers
+    build:
+      context: .
+      dockerfile: Controllers/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80  
+    ports:
+      - "8080:80"
+    depends_on: 
+      - postgres
+    restart: unless-stopped
+  postgres:
+    image: postgres:16
+    volumes:
+      - ./.Application/db:/var/lib/postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=Internship
+    ports:
+      - "5432:5432"
+    restart: unless-stopped 
