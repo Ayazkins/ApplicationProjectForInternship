@@ -4,7 +4,7 @@ namespace Domain.Responses;
 
 public record GetResponse(Guid Id, 
     Guid Author,
-    ActivityType? ActivityType,
+    Activity? ActivityType,
     string? Name,
     string? Description,
     string? Outline);

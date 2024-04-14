@@ -9,6 +9,7 @@ public static class DomainDI
     public static void AddDi(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddScoped<IApplicationService, ApplicationService>();
-        serviceCollection.AddScoped<IValidator, Validator>();
+        serviceCollection.AddScoped<UnsubmittedApplicationValidator, UnsubmittedApplicationValidator>();
+        serviceCollection.AddScoped<ApplicationValidator, ApplicationValidator>();
     }
 }

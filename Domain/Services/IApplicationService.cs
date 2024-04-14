@@ -5,21 +5,21 @@ namespace Domain.Services;
 
 public interface IApplicationService
 {
-    Task<AddResponse> Post(AddRequest addRequest);
+    Task<Result> Post(AddRequest addRequest);
 
-    Task<UpdateResponse> Put(Guid id, UpdateRequest updateRequest);
+    Task<Result> Put(Guid id, UpdateRequest updateRequest);
 
-    Task<Task> Delete(Guid id);
+    Task<Result>  Delete(Guid id);
 
-    Task Send(Guid id);
+    Task<Result>  Send(Guid id);
 
-    Task<List<GetResponse>> GetAfter(DateTime dateTime);
+    Task<Result> GetAfter(DateTime dateTime);
 
-    Task<List<GetResponse>> GetOlder(DateTime dateTime);
+    Task<Result> GetOlder(DateTime dateTime);
     
-    Task<GetResponse?> Get(Guid id);
+    Task<Result> Get(Guid id);
 
-    Task<GetResponse?> GetUncommitted(Guid id);
+    Task<Result> GetUncommitted(Guid id);
 
     List<GetActivity> GetActivities();
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/ayaz/RiderProjects/WebApplication1/Controllers/Controllers.csproj": {}
+    "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Controllers/Controllers.csproj": {}
   },
   "projects": {
-    "/home/ayaz/RiderProjects/WebApplication1/Controllers/Controllers.csproj": {
+    "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Controllers/Controllers.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ayaz/RiderProjects/WebApplication1/Controllers/Controllers.csproj",
+        "projectUniqueName": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Controllers/Controllers.csproj",
         "projectName": "Controllers",
-        "projectPath": "/home/ayaz/RiderProjects/WebApplication1/Controllers/Controllers.csproj",
+        "projectPath": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Controllers/Controllers.csproj",
         "packagesPath": "/home/ayaz/.nuget/packages/",
-        "outputPath": "/home/ayaz/RiderProjects/WebApplication1/Controllers/obj/",
+        "outputPath": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Controllers/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/ayaz/.nuget/NuGet/NuGet.Config"
@@ -26,11 +26,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/home/ayaz/RiderProjects/WebApplication1/DAL/DAL.csproj": {
-                "projectPath": "/home/ayaz/RiderProjects/WebApplication1/DAL/DAL.csproj"
+              "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/DAL/DAL.csproj": {
+                "projectPath": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/DAL/DAL.csproj"
               },
-              "/home/ayaz/RiderProjects/WebApplication1/Domain/Domain.csproj": {
-                "projectPath": "/home/ayaz/RiderProjects/WebApplication1/Domain/Domain.csproj"
+              "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Domain/Domain.csproj": {
+                "projectPath": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Domain/Domain.csproj"
               }
             }
           }
@@ -95,14 +95,14 @@
         }
       }
     },
-    "/home/ayaz/RiderProjects/WebApplication1/DAL/DAL.csproj": {
+    "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/DAL/DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ayaz/RiderProjects/WebApplication1/DAL/DAL.csproj",
+        "projectUniqueName": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/DAL/DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "/home/ayaz/RiderProjects/WebApplication1/DAL/DAL.csproj",
+        "projectPath": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/DAL/DAL.csproj",
         "packagesPath": "/home/ayaz/.nuget/packages/",
-        "outputPath": "/home/ayaz/RiderProjects/WebApplication1/DAL/obj/",
+        "outputPath": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/DAL/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/ayaz/.nuget/NuGet/NuGet.Config"
@@ -117,8 +117,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/home/ayaz/RiderProjects/WebApplication1/Domain/Domain.csproj": {
-                "projectPath": "/home/ayaz/RiderProjects/WebApplication1/Domain/Domain.csproj"
+              "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Domain/Domain.csproj": {
+                "projectPath": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Domain/Domain.csproj"
               }
             }
           }
@@ -192,14 +192,14 @@
         }
       }
     },
-    "/home/ayaz/RiderProjects/WebApplication1/Domain/Domain.csproj": {
+    "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Domain/Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ayaz/RiderProjects/WebApplication1/Domain/Domain.csproj",
+        "projectUniqueName": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Domain/Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "/home/ayaz/RiderProjects/WebApplication1/Domain/Domain.csproj",
+        "projectPath": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Domain/Domain.csproj",
         "packagesPath": "/home/ayaz/.nuget/packages/",
-        "outputPath": "/home/ayaz/RiderProjects/WebApplication1/Domain/obj/",
+        "outputPath": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/ayaz/.nuget/NuGet/NuGet.Config"
@@ -226,6 +226,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.9.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.17, )"

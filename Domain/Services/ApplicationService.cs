@@ -1,116 +1,159 @@
+using System.Net;
 using DAL.ApplicationValidator;
-using DAL.Exceptions;
 using Domain.Entity;
 using Domain.Interfaces.Repository;
 using Domain.Requests;
 using Domain.Responses;
+using Microsoft.VisualBasic;
 
 namespace Domain.Services;
 
 public class ApplicationService : IApplicationService
 {
     private readonly IApplicationRepository _applicationRepository;
-    private readonly IValidator _validator;
+    private readonly UnsubmittedApplicationValidator _unsubmittedApplicationValidator;
+    private readonly ApplicationValidator _applicationValidator;
 
-    public ApplicationService(IApplicationRepository applicationRepository, IValidator validator)
+    public ApplicationService(IApplicationRepository applicationRepository, UnsubmittedApplicationValidator unsubmittedApplicationValidator, ApplicationValidator applicationValidator)
     {
         _applicationRepository = applicationRepository;
-        _validator = validator;
+        _unsubmittedApplicationValidator = unsubmittedApplicationValidator;
+        _applicationValidator = applicationValidator;
     }
-    public async Task<AddResponse> Post(AddRequest addRequest)
+    public async Task<Result> Post(AddRequest addRequest)
     {
-        if (!_validator.IsAtLeastOneFiled(addRequest))
-        {
-            throw new NotEnoughFieldsOccuredException("Add more information");
-        }
-        return await _applicationRepository.AddAsync(addRequest);
-    }
+        var application = new Application().CreateRequest(addRequest);
+        var result = await _unsubmittedApplicationValidator.ValidateAsync(application);
 
-    public async Task<UpdateResponse> Put(Guid id, UpdateRequest updateRequest)
-    {
-        if (!_validator.IsAtLeastOneFiled(updateRequest))
+        if (!result.IsValid)
         {
-            throw new NotEnoughFieldsOccuredException("Fill more fields");
+            return new Result.Error(HttpStatusCode.BadRequest,
+                Strings.Join(result.Errors.Select(e => e.ErrorMessage).ToArray(), "\n"));
         }
 
-        if (await _applicationRepository.IsCommitted(id))
+        if (await _applicationRepository.AuthorExists(application.Author))
         {
-            throw new ApplicationAlreadyCommittedException("You can't update committed applications");
+            return new Result.Error(HttpStatusCode.Conflict,
+                "Author already has application");
         }
+        await _applicationRepository.AddAsync(application);
 
-        if (await _applicationRepository.GetAsync(id) == null)
-        {
-            throw new NoSuchApplicationException("Application doesn't exist");
-        }
-        return await _applicationRepository.UpdateAsync(id, updateRequest);
+        return new Result.Success(ToDto(application));
     }
 
-    public async Task<Task> Delete(Guid id)
+    public async Task<Result> Put(Guid id, UpdateRequest updateRequest)
     {
-        if (await _applicationRepository.IsCommitted(id))
+        var application = await _applicationRepository.GetAsync(id);
+        if (application == null)
         {
-            throw new ApplicationAlreadyCommittedException("You can't delete committed applications");
+            return new Result.Error(HttpStatusCode.NotFound, "Application doesn't exist");
         }
-        if (await _applicationRepository.GetAsync(id) == null)
+        application.UpdateRequest(updateRequest);
+        var result = await _unsubmittedApplicationValidator.ValidateAsync(application);
+        if (!result.IsValid)
         {
-            throw new NoSuchApplicationException("Application doesn't exist");
+            return new Result.Error(HttpStatusCode.BadRequest,
+                Strings.Join(result.Errors.Select(e => e.ErrorMessage).ToArray(), "\n"));
         }
-        return _applicationRepository.DeleteAsync(id);
+        
+        return new Result.Success(ToDto(await _applicationRepository.UpdateAsync(application)));
     }
 
-    public async Task Send(Guid id)
+    public async Task<Result> Delete(Guid id)
     {
-        if (!_validator.IsAllFieldsOccured(await _applicationRepository.GetAsync(id)))
+        var application = await _applicationRepository.GetAsync(id);
+        if (application == null)
         {
-            throw new NotEnoughFieldsOccuredException("Fill all fields");
+            return new Result.Error(HttpStatusCode.NotFound, "Application doesn't exist");
         }
-        if (await _applicationRepository.GetAsync(id) == null)
+
+        var result = await _unsubmittedApplicationValidator.ValidateAsync(application);
+        if (!result.IsValid)
         {
-            throw new NoSuchApplicationException("Application doesn't exist");
+            return new Result.Error(HttpStatusCode.BadRequest,
+                Strings.Join(result.Errors.Select(e => e.ErrorMessage).ToArray(), "\n"));
+            
         }
-        await _applicationRepository.SendAsync(id);
+        
+        await _applicationRepository.DeleteAsync(application);
+        return new Result.Success(null);
+
     }
 
-    public async Task<List<GetResponse>> GetAfter(DateTime dateTime)
+    public async Task<Result> Send(Guid id)
     {
-        return await _applicationRepository.GetAfterAsync(dateTime);
-    }
-
-    public async Task<List<GetResponse>> GetOlder(DateTime dateTime)
-    {
-        return await _applicationRepository.GetOlderAsync(dateTime);
-    }
-
-    public async Task<GetResponse?> Get(Guid id)
-    {
-        GetResponse? getResponse = await _applicationRepository.GetAsync(id);
-        if (getResponse == null)
+        var application= await _applicationRepository.GetAsync(id);
+        if (application == null)
         {
-            throw new NoSuchApplicationException("Application doesn't exist");
+            return new Result.Error(HttpStatusCode.NotFound, "Application doesn't exist");
         }
-        return getResponse;
+
+        var result = await _applicationValidator.ValidateAsync(application);
+        
+        if (!result.IsValid)
+        {
+            return new Result.Error(HttpStatusCode.BadRequest,
+                Strings.Join(result.Errors.Select(e => e.ErrorMessage).ToArray(), "\n"));        }
+
+        application.Commit();
+        await _applicationRepository.UpdateAsync(application);
+        return new Result.Success(null);
+    }
+
+    public async Task<Result> GetAfter(DateTime dateTime)
+    {
+        var applications = await _applicationRepository.GetAfterAsync(dateTime);
+        return new Result.SuccessWithMoreObjects(applications.Select(a => ToDto(a)).ToList());
+
+    }
+
+    public async Task<Result> GetOlder(DateTime dateTime)
+    {
+        var applications = await _applicationRepository.GetOlderAsync(dateTime);
+        return new Result.SuccessWithMoreObjects(applications.Select(a => ToDto(a)).ToList());
+
+    }
+
+    public async Task<Result> Get(Guid id)
+    {
+        var application = await _applicationRepository.GetAsync(id);
+        if (application == null)
+        {
+            return new Result.Error(HttpStatusCode.NotFound, "Application doesn't exist");
+        }
+        return new Result.Success(ToDto(application));
     }
     
-    public async Task<GetResponse?> GetUncommitted(Guid id)
+    public async Task<Result> GetUncommitted(Guid id)
     {
-        GetResponse? getResponse = await _applicationRepository.GetUncommitted(id);
+        var application = await _applicationRepository.GetUncommitted(id);
 
-        if (getResponse == null)
+        if (application == null)
         {
-            throw new NoSuchApplicationException("Application doesn't exist");
+            return new Result.Error(HttpStatusCode.NotFound, "Application doesn't exist");
         }
 
-        return getResponse;
+        return new Result.Success(ToDto(application));
     }
 
     public List<GetActivity> GetActivities()
     {
         List<GetActivity> list = new List<GetActivity>
         {
-            new(ActivityType.Discussion, "Дискуссия / круглый стол, 40-50 минут"),
-            new(ActivityType.Masterclass, "Мастеркласс, 1-2 часа"),
-            new(ActivityType.Report, "Доклад, 35-45 минут")
+            new(Activity.Discussion, "Дискуссия / круглый стол, 40-50 минут"),
+            new(Activity.Masterclass, "Мастеркласс, 1-2 часа"),
+            new(Activity.Report, "Доклад, 35-45 минут")
         };
         return list;
+    }
+
+    private GetResponse ToDto(Application application)
+    {
+        return new GetResponse(application.Id,
+            application.Author,
+            application.ActivityType,
+            application.Name,
+            application.Description,
+            application.Outline);
     }
 }
