@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Domain.Entity;
 
-public enum ActivityType
+public enum Activity
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
     Report,

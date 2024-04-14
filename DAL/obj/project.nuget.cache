@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "E8kvimpneccG8Yl85LPa0lddghEgT34eTUYSjt8igNk/XQQbZwK71JgbQx3JvHfX2UKjowuA35sLEZ3WwpgOzg==",
+  "dgSpecHash": "WUyu7DjBdgN5zJyv38G9BoWCwMMW5XAAG8hJPCGFixrDl12zftle+1+uXJMDXCktTBVyhA5nwFKqo9I9kz6o0Q==",
   "success": true,
-  "projectFilePath": "/home/ayaz/RiderProjects/WebApplication1/DAL/DAL.csproj",
+  "projectFilePath": "/home/ayaz/RiderProjects/Artyom/ApplicationProjectForInternship/DAL/DAL.csproj",
   "expectedPackageFiles": [
+    "/home/ayaz/.nuget/packages/fluentvalidation/11.9.0/fluentvalidation.11.9.0.nupkg.sha512",
     "/home/ayaz/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/ayaz/.nuget/packages/microsoft.entityframeworkcore/7.0.17/microsoft.entityframeworkcore.7.0.17.nupkg.sha512",
     "/home/ayaz/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.17/microsoft.entityframeworkcore.abstractions.7.0.17.nupkg.sha512",

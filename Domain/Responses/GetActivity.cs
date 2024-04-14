@@ -2,4 +2,4 @@ using Domain.Entity;
 
 namespace Domain.Responses;
 
-public record GetActivity(ActivityType ActivityType, string Message);
+public record GetActivity(Activity Activity, string Message);

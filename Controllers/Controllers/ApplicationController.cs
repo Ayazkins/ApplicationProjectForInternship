@@ -1,5 +1,3 @@
-using System.Net;
-using DAL.Exceptions;
 using Domain.Requests;
 using Domain.Responses;
 using Domain.Services;
@@ -19,53 +17,75 @@ public class ApplicationController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<AddResponse> Post([FromBody] AddRequest addRequest)
+    public async Task<ActionResult<GetResponse>> Post([FromBody] AddRequest addRequest)
     {
-        return await _applicationService.Post(addRequest);
+        return ToReturn(await _applicationService.Post(addRequest));
     }
 
     [HttpPut]
     [Route("{id:guid}")]
-    public async Task<UpdateResponse> Put([FromRoute] Guid id, [FromBody] UpdateRequest updateRequest)
+    public async Task<ActionResult<GetResponse>> Put([FromRoute] Guid id, [FromBody] UpdateRequest updateRequest)
     {
-        return await _applicationService.Put(id, updateRequest);
+        return ToReturn(await _applicationService.Put(id, updateRequest));
     }
 
     [HttpDelete]
     [Route("{id:guid}")]
-    public async Task Delete([FromRoute] Guid id)
+    public async Task<ActionResult<string>> Delete([FromRoute] Guid id)
     {
-        await _applicationService.Delete(id);
+        return ToReturn(await _applicationService.Delete(id));
     }
 
     [HttpPost]
     [Route("{id:guid}/commit")]
-    public async Task Commit([FromRoute] Guid id)
+    public async Task<ActionResult<string>> Commit([FromRoute] Guid id)
     {
-        await _applicationService.Send(id);
+       return ToReturn(await _applicationService.Send(id));
     }
 
     [HttpGet]
-    public async Task<List<GetResponse>> GetAfter([FromQuery(Name = "submittedAfter")] DateTime? submittedAfter,
+    public async Task<ActionResult<IEnumerable<GetResponse>>> GetAfter([FromQuery(Name = "submittedAfter")] DateTime? submittedAfter,
         [FromQuery(Name = "unsubmittedOlder")] DateTime? unsubmittedOlder)
     {
+        if (submittedAfter == null && unsubmittedOlder == null || submittedAfter != null && unsubmittedOlder != null)
+        {
+            throw new BadHttpRequestException("Request must have one timestamp");
+        }
+
         if (submittedAfter.HasValue)
         {
-            return await _applicationService.GetAfter(submittedAfter.Value);
+            return ToReturn(await _applicationService.GetAfter(submittedAfter.Value));
         }
-
-        if (unsubmittedOlder.HasValue)
-        {
-            return await _applicationService.GetOlder(unsubmittedOlder.Value);
-        }
-
-        throw new HttpRequestException("No value");
+        return ToReturn(await _applicationService.GetOlder(unsubmittedOlder.Value));
     }
 
     [HttpGet]
     [Route("{id:guid}")]
-    public async Task<GetResponse?> Get([FromRoute] Guid id)
+    public async Task<ActionResult<GetResponse>> Get([FromRoute] Guid id)
     {
-        return await _applicationService.Get(id);
+        return ToReturn(await _applicationService.Get(id));
+    }
+
+    private ActionResult ToReturn(Result result)
+    {
+        if (result is Result.Success success)
+        {
+            if (success.GetResponse == null)
+            {
+                return Ok();
+            }
+            return Ok(success.GetResponse);
+        }
+
+        if (result is Result.SuccessWithMoreObjects successWithMoreObjects)
+        {
+            return Ok(successWithMoreObjects.GetResponses);
+        }
+        if (result is Result.Error error)
+        {
+            return BadRequest(error.Description);
+        }
+
+        return BadRequest();
     }
 }

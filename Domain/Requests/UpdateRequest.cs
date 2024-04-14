@@ -2,7 +2,7 @@ using Domain.Entity;
 
 namespace Domain.Requests;
 
-public record UpdateRequest(ActivityType? ActivityType,
+public record UpdateRequest(Activity? ActivityType,
     string? Name,
     string? Description,
     string? Outline);

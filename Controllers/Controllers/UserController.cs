@@ -1,3 +1,4 @@
+using Domain.Requests;
 using Domain.Responses;
 using Domain.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -5,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Controllers.Controllers;
 
 [ApiController]
-[Route("applications")]
+[Route("users")]
 public class UserController
 {
 
@@ -17,8 +18,28 @@ public class UserController
     }
     [HttpGet]
     [Route("{id:guid}/currentapplication")]
-    public Task<GetResponse?> GetUncommitted([FromRoute] Guid id)
+    public async Task<ActionResult<GetResponse>> GetUncommitted([FromRoute] Guid id)
     {
-        return _applicationService.GetUncommitted(id);
+        return ToReturn(await _applicationService.GetUncommitted(id));
     }
+    
+    private ActionResult ToReturn(Result result)
+    {
+        if (result is Result.Success success)
+        {
+            return new OkObjectResult(success.GetResponse);
+        }
+
+        if (result is Result.SuccessWithMoreObjects successWithMoreObjects)
+        {
+            return new OkObjectResult(successWithMoreObjects.GetResponses);
+        }
+        if (result is Result.Error error)
+        {
+            return new BadRequestObjectResult(error.Description);
+        }
+
+        return new BadRequestObjectResult("Unknown problem");
+    }
+    
 }
